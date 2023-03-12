@@ -3,10 +3,11 @@ import csv
 
 # Set up variables to store data
 
-rowcount = 0
+total_month = 0
 total_profit_losses = 0
 previous_month_profit = 0
-change = average_change = total_change = 0
+change = average_change = 0
+change_list = []
 greatest_increase_month = ""
 greatest_increase = 0
 greatest_decrease_month = ""
@@ -18,7 +19,7 @@ with open('Resources/budget_data.csv', newline='') as csvfile:
     # skip header row
     next(csvreader) 
     for row in csvreader:
-        rowcount += 1
+        total_month = total_month + 1
         month = row[0]
         profit_losses = int(row[1])
         
@@ -32,11 +33,11 @@ with open('Resources/budget_data.csv', newline='') as csvfile:
         previous_month_profit = profit_losses
         
         # Calculate the average change
-        if month != "Jan-10": # exclude first month from average calculation
-            average_change += change
-         # Calculate the average change (exclude first month)
-        total_change += change 
-        average_change = total_change / rowcount
+        if month!= "Jan-10":
+            average_change = 0
+        
+            change_list = change_list + [change]
+            average_change = sum (change_list) / len(change_list)
 
         # Find the greatest increase and decrease in profits
         if change > greatest_increase:
@@ -50,7 +51,7 @@ with open('Resources/budget_data.csv', newline='') as csvfile:
 output = (
     f"\nFinancial Analysis\n"
     f"----------------------------\n"
-    f"Total Months: {rowcount}\n"
+    f"Total Months: {total_month}\n"
     f"Total: ${total_profit_losses}\n"
     f"Average Change: ${average_change:.2f}\n"
     f"Greatest Increase in Profits: {greatest_increase_month} (${greatest_increase})\n"
