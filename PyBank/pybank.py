@@ -6,14 +6,14 @@ import csv
 rowcount = 0
 total_profit_losses = 0
 previous_month_profit = 0
-average_change = 0
+change = average_change = total_change = 0
 greatest_increase_month = ""
 greatest_increase = 0
 greatest_decrease_month = ""
 greatest_decrease = 0
 
 # Open the CSV file and read in the data
-with open('PyBank/Resources/budget_data.csv', newline='') as csvfile:
+with open('Resources/budget_data.csv', newline='') as csvfile:
     csvreader = csv.reader(csvfile, delimiter=',')
     # skip header row
     next(csvreader) 
@@ -34,18 +34,17 @@ with open('PyBank/Resources/budget_data.csv', newline='') as csvfile:
         # Calculate the average change
         if month != "Jan-10": # exclude first month from average calculation
             average_change += change
-        
+         # Calculate the average change (exclude first month)
+        total_change += change 
+        average_change = total_change / rowcount
+
         # Find the greatest increase and decrease in profits
         if change > greatest_increase:
             greatest_increase = change
             greatest_increase_month = month
         elif change < greatest_decrease:
             greatest_decrease = change
-            greatest_decrease_month = month
-
-        # Calculate the average change (exclude first month)
-        average_change /= rowcount
-        
+            greatest_decrease_month = month  
 
 # Output the results
 output = (
@@ -59,6 +58,6 @@ output = (
 )
 print (output)
 
-with open ("PyBank/Analysis/final.txt", "w") as txtfile:
+with open ("Analysis/final.txt", "w") as txtfile:
     txtfile.write (output)
 txtfile.close()
