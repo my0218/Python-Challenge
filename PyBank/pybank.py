@@ -48,10 +48,17 @@ with open('PyBank/Resources/budget_data.csv', newline='') as csvfile:
         
 
 # Output the results
-print("Financial Analysis")
-print("----------------------------")
-print(f"Total Months:", rowcount)
-print(f"Total: ${total_profit_losses}")
-print(f"Average Change: ${average_change:.2f}")
-print(f"Greatest Increase in Profits: {greatest_increase_month} (${greatest_increase})")
-print(f"Greatest Decrease in Profits: {greatest_decrease_month} (${greatest_decrease})")
+output = (
+    f"\nFinancial Analysis\n"
+    f"----------------------------\n"
+    f"Total Months: {rowcount}\n"
+    f"Total: ${total_profit_losses}\n"
+    f"Average Change: ${average_change:.2f}\n"
+    f"Greatest Increase in Profits: {greatest_increase_month} (${greatest_increase})\n"
+    f"Greatest Decrease in Profits: {greatest_decrease_month} (${greatest_decrease})\n"
+)
+print (output)
+
+with open ("PyBank/Analysis/final.txt", "w") as txtfile:
+    txtfile.write (output)
+txtfile.close()
