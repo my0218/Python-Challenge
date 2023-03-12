@@ -2,6 +2,7 @@ import os
 import csv
 
 #list to store data
+candidate_list = []
 rowcount = 0
 candidate1_votes = 0
 candidate2_votes = 0
@@ -15,9 +16,12 @@ with open('PyPoll/Resources/election_data.csv', newline='') as csvfile:
     csvreader = csv.reader(csvfile, delimiter=',')
     # skip header row
     next(csvreader) 
+
     #count number of votes
     for row in csvreader:
         rowcount += 1
+        if row[2] not in candidate_list:
+            candidate_list.append(row[2])
     #get votes of each candidates
         if str(row[2]) == "Charles Casper Stockham":
             candidate1_votes +=1
@@ -35,6 +39,7 @@ with open('PyPoll/Resources/election_data.csv', newline='') as csvfile:
 
 print ("Election Results")
 print ("---------------------")
+print (candidate_list)
 print ("Total Votes: ", rowcount)
 print ("---------------------")
 print ("Charles Casper Stockham: ", candidate1_pct,"% (", candidate1_votes, ")")
