@@ -37,12 +37,20 @@ with open('PyPoll/Resources/election_data.csv', newline='') as csvfile:
     result = {"Charles Casper Stockham":candidate1_votes, "Diana DeGette": candidate2_votes, "Raymon Anthony Doane": candidate3_votes}
     winner = max (result, key=result.get)
 
-print ("Election Results")
-print ("---------------------")
-print (candidate_list)
-print ("Total Votes: ", rowcount)
-print ("---------------------")
-print ("Charles Casper Stockham: ", candidate1_pct,"% (", candidate1_votes, ")")
-print ("Diana DeGette: ", candidate2_pct, "% (", candidate2_votes, ")")
-print ("Raymon Anthony Doane: ", candidate3_pct, "% (", candidate3_votes, ")")
-print ("Winner: ", winner)
+output = (
+    f"\nElection Results\n"
+    f"---------------------\n"
+    f"{candidate_list}\n"
+    f"Total Votes: {rowcount}\n"
+    f"---------------------\n"
+    f"Charles Casper Stockham: {candidate1_pct} % ({candidate1_votes} )\n"
+    f"Diana DeGette: {candidate2_pct} % ({candidate2_votes})\n"
+    f"Raymon Anthony Doane: {candidate3_pct} % ({candidate3_votes})\n"
+    f"Winner: {winner}\n"
+)
+
+print (output)
+
+with open ("PyPoll/Analysis/final.txt", "w") as txtfile:
+    txtfile.write (output)
+txtfile.close()
